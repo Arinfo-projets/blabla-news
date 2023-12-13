@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MainController!{% endblock %}
+
+{% block body %}
+
+<div class="wrapper">
+    <div class="hero-banner shadow" style="
+        background-image: url('https://www.fcpeislejourdain.com/wp-content/uploads/2013/12/News-handing.gif');
+        background-position: center;
+        background-size: cover;
+        ">
+        <div class="container">
+            <div class="filters card">
+                <div class="card-body">
+                    {{ form_start(formfilter) }}
+                    {{form_widget(formfilter)}}
+                    {{form_end(formfilter)}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container my-5">
+        {% if articles | length %}
+        <div class="row">
+            {% for article in articles %}
+            <div class="mb-3 col col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                {{ include('components/articleCard.html.twig', { article: article }) }}
+            </div>
+            {% endfor%}
+        </div>
+        {% else %}
+        <em>Aucun article</em>
+        {%endif%}
+    </div>
+</div>
+
+<style>
+    .hero-banner {
+        min-height: 400px;
+        display: flex;
+        align-content: center;
+        align-items: center;
+        justify-content: center;
+    }
+
+    @media screen and (max-width: 750px) {
+        .hero-banner {
+            height: 250px;
+        }
+    }
+</style>
+{% endblock %}

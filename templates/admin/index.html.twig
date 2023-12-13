@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block body %}
+
+<div class="wrapper my-5">
+  <div class="container">
+    <h1 class="h2">Dashboard</h1>
+
+    <div class="accordion  mt-3" id="accordionExample">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+            aria-expanded="true" aria-controls="collapseOne">
+            Articles
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+          data-bs-parent="#accordionExample">
+          <div class="accordion-body table-responsive">
+            <a href="{{path('app_article_new')}}" class="btn text-primary">Ajouter un article</a>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Auteur</th>
+                  <th scope="col">Titre</th>
+                  <th scope="col">Catégorie</th>
+                  <th scope="col">Date de publication</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for article in articles %}
+                <tr>
+                  <th scope="row"> {{ article.user.firstName }} {{ article.user.lastName }}</th>
+                  <td class="text-truncate" style="max-width: 200px;">{{article.title}}</td>
+                  <td>{{article.category.label}}</td>
+                  <td>{{ article.createdAt | date("d.m.y à H:i") }}</td>
+                  <td class="d-flex">
+                    <a class="btn btn-primary btn-sm" href="{{path('app_article_show', {id: article.id})}}">Voir</a>
+                    <a class="btn btn-warning btn-sm"
+                      href="{{path('app_article_edit', {'id' : article.id })}}">Modifier</a>
+                    {{ include('article/_delete_form.html.twig') }}
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            Catégories
+          </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+          data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <a href="{{path('app_category_new')}}" class="btn text-primary">Ajouter une catégorie</a>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Nom de la catégorie</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for category in categories %}
+                <tr>
+                  <th scope="row"> {{ category.id }}</th>
+                  <td>{{category.label}}</td>
+                  <td class="d-flex align-items-center">
+                    <a class="btn btn-warning btn-sm"
+                      href="{{path('app_category_edit', {'id' : category.id })}}">Modifier</a>
+                    {{ include('category/_delete_form.html.twig') }}
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+<div class="card">
+    <div class="card-image">
+        <img src="{{asset('assets/images/' ~ article.images[0].path )}}" class="card-img-top" alt="...">
+    </div>
+    <div class="card-body">
+        {{ include('components/category.html.twig', { category: article.category }) }}
+        <div class="my-3">
+            <h5 class="card-title text-truncate">{{article.title}}</h5>
+            <p class="card-text text-truncate">
+                {{article.content}}
+            </p>
+        </div>
+        <span class="d-block mb-3 text-secondary"> publié par : {{article.user.firstName}}
+            {{article.user.lastName}} </span>
+        <a href="{{path('app_article_show', {id: article.id})}}" class="btn btn-primary">Voir plus</a>
+    </div>
+</div>
+
+<style>
+    .card-image {
+        height: 300px;
+    }
+
+    .card-image img {
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    @media screen and (max-width: 900px) {
+        .card-image {
+            height: 200px;
+        }
+    }
+</style>

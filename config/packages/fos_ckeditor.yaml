@@ -1,0 +1,15 @@
+twig:
+    form_themes:
+        - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
+
+# fos_ck_editor:
+#     default_config: my_custom_config
+#     inline: true # Optional, enables inline editing
+#     configs:
+#         my_custom_config:
+#             # CKEditor options go here
+#             toolbar:
+#                 - ['Bold', 'Italic', 'Underline']
+#                 - ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent']
+#                 - ['Link', 'Unlink']
+#                 - ['Source']

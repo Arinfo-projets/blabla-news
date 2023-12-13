@@ -1,0 +1,65 @@
+<nav class="navbar sticky-top py-3 shadow align-items-center bg-white">
+    <div class="container">
+        <div class="navbar-left d-flex align-items-center">
+            <a href="#" class="fw-bold fs-3 border-start border-bottom border-3 border-primary text-danger">
+                <span>BBN</span>
+            </a>
+            <ul class="links d-flex m-0">
+                <li class="me-3">
+                    <a href="/">Articles</a>
+                </li>
+                <li>
+                    <a href="#">link b</a>
+                </li>
+            </ul>
+        </div>
+        <div class="navbar-right avatar">
+            <div class="dropdown">
+                <div style="width: 40px; height: 40px; border-radius: 90px; cursor: pointer"
+                    class="shadow dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    {% if app.user %}
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQj2Q7i8sOkXInieCTCCXOLhH9-Ioo1q1nLKw&usqp=CAU"
+                        alt="">
+                    {% else %}
+                    <img src="https://www.clipartmax.com/png/middle/269-2691367_user-login-person-man-enter-comments-logo.png"
+                        alt="">
+                    {% endif %}
+                </div>
+                <ul class="dropdown-menu" style="left: auto; right: 0" aria-labelledby="dropdownMenuButton1">
+                    {% if app.user %}
+                    {% if 'ROLE_ADMIN' in app.user.roles %}
+                    <li><a class="dropdown-item" href="{{path('app_admin')}}">Admin</a></li>
+                    {% endif %}
+                    <li><a class="dropdown-item" href="{{path('app_logout')}}">Se deconnecter</a></li>
+                    {% else %}
+                    <li><a class="dropdown-item" href="{{path('app_login')}}">Se connecter</a></li>
+                    <li><a class="dropdown-item" href="{{path('app_register')}}">Créer un compte</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<style>
+    .navbar * {
+        text-decoration: none;
+        list-style: none;
+    }
+
+    .navbar .links a {
+        color: black;
+        font-weight: 500;
+    }
+
+    .navbar .avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 90px;
+    }
+
+    .navbar .dropdown-toggle::after {
+        display: none;
+    }
+</style>
