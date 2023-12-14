@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact index{% endblock %}
+
+{% block body %}
+<div class="container my-5">
+    <h1 class="h3">Boite email</h1>
+    <div class="table-responsive">
+        <table class="table">
+            <thead class="bg-primary text-white">
+                <tr>
+                    <th>De</th>
+                    <th>Message</th>
+                    <th>Date</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for contact in contacts %}
+                <tr>
+                    <td>{{ contact.user.email }}</td>
+                    <td class="text-truncate">{{ contact.message | striptags }}</td>
+                    <td>{{ contact.createdAt | date('d.m.Y à H:i')  }}</td>
+                    <td class="d-flex">
+                        <a class="btn" href="{{ path('app_contact_show', {'id': contact.id}) }}">Ouvrir</a>
+                        {{ include('contact/_delete_form.html.twig') }}
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="3">Aucun message</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+    {% endblock %}

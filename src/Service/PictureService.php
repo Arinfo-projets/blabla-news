@@ -8,7 +8,9 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class PictureService
 {
-    public function __construct(private ParameterBagInterface $params){}
+    public function __construct(private ParameterBagInterface $params)
+    {
+    }
 
     public function add(UploadedFile $picture, ?string $folder = '')
     {
@@ -17,7 +19,7 @@ class PictureService
 
 
 
-        if($picture_infos === false){
+        if ($picture_infos === false) {
             throw new Exception('Format d\'image incorrect');
         }
 
@@ -26,6 +28,23 @@ class PictureService
         $picture->move($path . '/', $fichier);
 
         return $fichier;
+    }
 
+    public function delete(string $fichier, ?string $folder = '')
+    {
+
+
+        $path = $this->params->get('images_directory') . $folder;
+
+
+        $original = $path . '/' . $fichier;
+
+        if (file_exists($original)) {
+            unlink($original);
+        }else{
+            return false;
+        }
+
+        return false;
     }
 }

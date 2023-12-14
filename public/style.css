@@ -1,0 +1,4 @@
+body .tox .tox-notifications-container{
+    display: none!important;
+    visibility: hidden;
+}

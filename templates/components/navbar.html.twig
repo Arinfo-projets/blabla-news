@@ -8,13 +8,16 @@
                 <li class="me-3">
                     <a href="/">Articles</a>
                 </li>
-                <li>
-                    <a href="#">link b</a>
-                </li>
             </ul>
         </div>
-        <div class="navbar-right avatar">
-            <div class="dropdown">
+        <div class="navbar-right d-flex align-items-center">
+            {% if is_granted('ROLE_USER') and not is_granted('ROLE_ADMIN') %}
+            <button type="button" class="btn btn-outline-primary me-3" data-bs-toggle="modal"
+                data-bs-target="#exampleModal">
+                contacter l'admin
+            </button>
+            {% endif %}
+            <div class="dropdown avatar">
                 <div style="width: 40px; height: 40px; border-radius: 90px; cursor: pointer"
                     class="shadow dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                     {% if app.user %}
@@ -28,7 +31,8 @@
                 <ul class="dropdown-menu" style="left: auto; right: 0" aria-labelledby="dropdownMenuButton1">
                     {% if app.user %}
                     {% if 'ROLE_ADMIN' in app.user.roles %}
-                    <li><a class="dropdown-item" href="{{path('app_admin')}}">Admin</a></li>
+                    <li><a class="dropdown-item" href="{{path('app_admin')}}">Dashboard</a></li>
+                    <li><a class="dropdown-item" href="{{path('app_contact_index')}}">Message</a></li>
                     {% endif %}
                     <li><a class="dropdown-item" href="{{path('app_logout')}}">Se deconnecter</a></li>
                     {% else %}
@@ -41,6 +45,21 @@
     </div>
 </nav>
 
+{% if is_granted('ROLE_USER') and not is_granted('ROLE_ADMIN') %}
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Contacter l'administrateur</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {{ include('contact/_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
 <style>
     .navbar * {
         text-decoration: none;

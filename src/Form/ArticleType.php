@@ -22,7 +22,9 @@ class ArticleType extends AbstractType
                 'label' => 'Titre',
                 'attr' => ['placeholder' => 'Titre de l\'article']
             ])
-            ->add('content', TextareaType::class)
+            ->add('content', TextareaType::class, [
+                'required' => false
+            ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'label',

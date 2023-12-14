@@ -43,6 +43,7 @@ class ArticleRepository extends ServiceEntityRepository
                 ->setParameter('q', "%{$search->q}%");
         }
 
+        $query = $query->orderBy('a.createdAt', 'DESC');
 
         return $query->getQuery()->getResult();
     }
