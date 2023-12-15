@@ -1,0 +1,23 @@
+<a href="{{path('app_category_new')}}" class="btn text-primary">Ajouter une catégorie</a>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Nom de la catégorie</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for category in categories %}
+      <tr>
+        <th scope="row"> {{ category.id }}</th>
+        <td>{{category.label}}</td>
+        <td class="d-flex align-items-center">
+          <a class="btn btn-warning btn-sm"
+            href="{{path('app_category_edit', {'id' : category.id })}}">Modifier</a>
+          {{ include('category/_delete_form.html.twig') }}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>

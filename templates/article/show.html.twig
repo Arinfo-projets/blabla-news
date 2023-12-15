@@ -2,6 +2,10 @@
 
 {% block title %}{{article.title}}{% endblock %}
 
+{% block metadescription %}
+<meta name="description" content="{{ article.content[:180] | striptags | raw }}">
+{% endblock%}
+
 {% block body %}
 <div class="my-5">
     <div class="container">
@@ -28,11 +32,12 @@
             </button>
         </div>
         <div class="article-content mt-3">
-            <p class="fw-bold text-secondary">Publié le : {{article.createdAt | date('M d Y') }} par {{article.user.firstName}} {{article.user.lastName}} </p>
+            <p class="fw-bold text-secondary">Publié le : {{ article.createdAt | date("d.m.y à H:i") }} par
+                {{article.user.fullname}} </p>
             <h1>{{article.title}}</h1>
-             <P>
+            <P>
                 {{article.content | raw }}
-             </P>
+            </P>
         </div>
 
     </div>

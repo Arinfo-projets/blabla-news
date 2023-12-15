@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Contact{% endblock %}
+{% block title %}Contactez l'administrateur{% endblock %}
 
 {% block body %}
-    <h1>Create new Contact</h1>
-
-    {{ include('contact/_form.html.twig') }}
-
-    <a href="{{ path('app_contact_index') }}">back to list</a>
+<div style="width: 500px; max-width: 100%;" class="container">
+    <h1 class="h3">Contactez l'administrateur</h1>
+    <div class="mt-3">
+        {{ include('contact/_form.html.twig') }}
+    </div>
+</div>
 {% endblock %}

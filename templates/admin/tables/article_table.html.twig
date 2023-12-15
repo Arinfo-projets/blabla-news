@@ -1,0 +1,28 @@
+<a href="{{path('app_article_new')}}" class="btn text-primary">Ajouter un article</a>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Auteur</th>
+        <th scope="col">Titre</th>
+        <th scope="col">Catégorie</th>
+        <th scope="col">Date de publication</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for article in articles %}
+      <tr>
+        <th scope="row"> {{ article.user.fullName }}</th>
+        <td class="text-truncate" style="max-width: 200px;">{{article.title}}</td>
+        <td>{{article.category.label}}</td>
+        <td>{{ article.createdAt | date("d.m.y à H:i") }}</td>
+        <td class="d-flex">
+          <a class="btn btn-primary btn-sm" href="{{path('app_article_show', {id: article.id})}}">Voir</a>
+          <a class="btn btn-warning btn-sm"
+            href="{{path('app_article_edit', {'id' : article.id })}}">Modifier</a>
+          {{ include('article/_delete_form.html.twig') }}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>

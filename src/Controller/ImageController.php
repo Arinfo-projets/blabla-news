@@ -9,7 +9,7 @@ use App\Repository\ImageRepository;
 use App\Service\PictureService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Finder\Exception\AccessDeniedException;
+use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,7 +38,7 @@ class ImageController extends AbstractController
             $this->denyAccessUnlessGranted("ROLE_ADMIN", null, "Vous n'êtes pas autorisé");
         } catch (AccessDeniedException $e) {
             $this->addFlash('warning', $e->getMessage());
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_main');
         }
 
         $image = new Image();
@@ -65,7 +65,7 @@ class ImageController extends AbstractController
             $this->denyAccessUnlessGranted("ROLE_ADMIN", null, "Vous n'êtes pas autorisé");
         } catch (AccessDeniedException $e) {
             $this->addFlash('warning', $e->getMessage());
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_main');
         }
 
         $form = $this->createForm(ImageType::class, $image);
@@ -90,7 +90,7 @@ class ImageController extends AbstractController
             $this->denyAccessUnlessGranted("ROLE_ADMIN", null, "Vous n'êtes pas autorisé");
         } catch (AccessDeniedException $e) {
             $this->addFlash('warning', $e->getMessage());
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_main');
         }
 
         if ($this->isCsrfTokenValid('delete' . $image->getId(), $request->request->get('_token'))) {
@@ -99,6 +99,7 @@ class ImageController extends AbstractController
             $article = $this->articleRepository->find($articleId);
 
             if ($article && Count($article->getImages()) === 1) {
+                $this->addFlash('error', "Impossible de supprimer l'image");
                 return $this->redirectToRoute('app_article_edit', ['id' => $articleId], Response::HTTP_SEE_OTHER);
             }
 

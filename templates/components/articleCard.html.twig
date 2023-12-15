@@ -10,11 +10,11 @@
             <h5 class="card-title text-truncate">{{article.title}}</h5>
 
             <p class="card-text text-truncate">
-                {{article.content | striptags }}
+                {{article.content | striptags | raw }}
             </p>
 
         </div>
-        <span class="d-block mb-3 text-secondary"> publié par : {{article.user.firstName}} {{article.user.lastName}}
+        <span class="d-block mb-3 text-secondary"> publié par : {{article.user.fullname}}
             <br> {{article.createdAt | ago}}
         </span>
         <a href="{{path('app_article_show', {id: article.id})}}" class="btn btn-primary">Voir plus</a>

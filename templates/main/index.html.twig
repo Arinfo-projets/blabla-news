@@ -2,6 +2,12 @@
 
 {% block title %}Accueil{% endblock %}
 
+{% block metadescription %}
+<meta name="description" content="
+    Explorez l'univers de Blablanew : la source incontournable pour tout savoir sur l'actualité. Découvrez les dernières nouvelles, analyses et tendances en un clin d'œil. Restez informé avec Blablanew, votre guide quotidien vers l'essentiel de l'actualité.
+    ">
+{% endblock%}
+
 {% block body %}
 
 <div class="wrapper">
@@ -13,7 +19,7 @@
         <div class="container">
             <div class="filters card">
                 <div class="card-body">
-                    {{ form_start(formfilter) }}
+                    {{form_start(formfilter)}}
                     {{form_widget(formfilter)}}
                     {{form_end(formfilter)}}
                 </div>
